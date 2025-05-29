@@ -1,5 +1,7 @@
 using UnityEngine;
 
+[RequireComponent (typeof(Mover))]
+
 public class Rotator : MonoBehaviour
 {
     private Mover _mover;

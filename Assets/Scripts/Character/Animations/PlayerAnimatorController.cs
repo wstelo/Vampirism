@@ -1,6 +1,8 @@
 using System;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+
 public class PlayerAnimatorController : MonoBehaviour
 {
     private Animator _animator;
@@ -14,52 +16,52 @@ public class PlayerAnimatorController : MonoBehaviour
 
     public void StartIdleAnimation()
     {
-        _animator.SetBool(AnimationData.IsIdle, true);
+        _animator.SetBool(PlayerAnimationData.IsIdle, true);
     }
 
     public void StartRunAnimation()
     {
-        _animator.SetBool(AnimationData.IsRun, true);
+        _animator.SetBool(PlayerAnimationData.IsRun, true);
     }
 
     public void StartJumpAnimation()
     {
-        _animator.SetBool(AnimationData.IsJump, true);
+        _animator.SetBool(PlayerAnimationData.IsJump, true);
     }
 
     public void StartIdleAttackAnimation()
     {
-        _animator.SetBool(AnimationData.IsIdleAttack, true);
+        _animator.SetBool(PlayerAnimationData.IsIdleAttack, true);
     }
 
     public void StartRunAttackAnimation()
     {
-        _animator.SetBool(AnimationData.IsRunAttack, true);
+        _animator.SetBool(PlayerAnimationData.IsRunAttack, true);
     }
 
     public void StopIdleAnimation()
     {
-        _animator.SetBool(AnimationData.IsIdle, false);
+        _animator.SetBool(PlayerAnimationData.IsIdle, false);
     }
 
     public void StopRunAnimation()
     {
-        _animator.SetBool(AnimationData.IsRun, false);
+        _animator.SetBool(PlayerAnimationData.IsRun, false);
     }
 
     public void StopJumpAnimation()
     {
-        _animator.SetBool(AnimationData.IsJump, false);
+        _animator.SetBool(PlayerAnimationData.IsJump, false);
     }
 
     public void StopIdleAttackAnimation()
     {
-        _animator.SetBool(AnimationData.IsIdleAttack, false);
+        _animator.SetBool(PlayerAnimationData.IsIdleAttack, false);
     }
 
     public void StopRunAttackAnimation()
     {
-        _animator.SetBool(AnimationData.IsRunAttack, false);
+        _animator.SetBool(PlayerAnimationData.IsRunAttack, false);
     }
 
     public void AttackAnimationEnded()

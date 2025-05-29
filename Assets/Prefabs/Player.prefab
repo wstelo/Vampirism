@@ -195,7 +195,6 @@ GameObject:
   - component: {fileID: 908271622673881396}
   - component: {fileID: 4623965462978055543}
   - component: {fileID: 151133644110679642}
-  - component: {fileID: 4777914275169714152}
   - component: {fileID: 1790900644161859848}
   - component: {fileID: 274612928634475622}
   - component: {fileID: 2011420239951439679}
@@ -204,6 +203,7 @@ GameObject:
   - component: {fileID: 116723278661720259}
   - component: {fileID: 4815433862592741294}
   - component: {fileID: 3192324957522862794}
+  - component: {fileID: 7753184182862769646}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -228,7 +228,7 @@ Transform:
   - {fileID: 3825804538548571503}
   - {fileID: 7774088328187640139}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2806296509275420023
 SpriteRenderer:
@@ -365,18 +365,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0.002685036, y: -0.020138256}
   m_Size: {x: 0.17231962, y: 0.2797237}
   m_Direction: 0
---- !u!114 &4777914275169714152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6596127425566245104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3c216ab5465bd4bb1cbd528d1688c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1790900644161859848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +460,7 @@ MonoBehaviour:
   _enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  _health: {fileID: 0}
 --- !u!114 &3192324957522862794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -485,6 +474,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _effectAreaCircleSprite: {fileID: 383891955960946781}
+--- !u!114 &7753184182862769646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6596127425566245104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9d8fde6c5cf1c41afd3d54aff2756c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _coinWallet: {fileID: 1790900644161859848}
+  _health: {fileID: 116723278661720259}
 --- !u!1 &7055479689737441396
 GameObject:
   m_ObjectHideFlags: 0

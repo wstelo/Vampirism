@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D), typeof(PlayerAnimatorController), typeof(Mover))]
-[RequireComponent(typeof(Health), typeof(Rotator), typeof(CollisionDetector))]
+[RequireComponent(typeof(Health), typeof(Rotator), typeof(ItemDetector))]
 [RequireComponent(typeof (CoinWallet), typeof(Vampirism))]
 
 public class Player : Character
@@ -43,7 +43,7 @@ public class Player : Character
 
     private void Start()
     {
-        _health.HealthEnded += ShowGameOverScreen;
+        _health.Ended += ShowGameOverScreen;
         _stateMachine = new StateMachine();
         _stateMachine.AddState(new PlayerIdleAttackState(_stateMachine,_animatorController, _mover, _weapon));
         _stateMachine.AddState(new PlayerRunAttackState(_stateMachine, _animatorController, _mover, _groundChecker,_moveSpeed, _weapon));
@@ -71,7 +71,7 @@ public class Player : Character
 
     private void ShowGameOverScreen (Health health)
     {
-        _health.HealthEnded -= ShowGameOverScreen;
+        _health.Ended -= ShowGameOverScreen;
         // Воспроизводится экран поражения. До UI ещё не дошли по этому не стал делать)
     }
 }

@@ -86,7 +86,7 @@ public class Vampirism : MonoBehaviour
                 if(currentTarget != null && currentTarget.TryGetComponent(out Health enemy))
                 {
                     enemy.TakeDamage(3);
-                    _health.IncreaseHealth(3);
+                    _health.IncreaseValue(3);
                 }
             }
 

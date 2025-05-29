@@ -1,16 +1,15 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CoinWallet))]
-public class CollisionDetector : MonoBehaviour
+public class ItemDetector : MonoBehaviour
 {
+    [SerializeField] private CoinWallet _coinWallet;
+    [SerializeField] private Health _health;
+
     private VisitorCollector _visitorCollector;
-    private CoinWallet _coinWallet;
-    private Health _health;
 
     private void Awake()
     {
-        _coinWallet = GetComponent<CoinWallet>();
-        _health = GetComponent<Health>();
         _visitorCollector = new VisitorCollector(_coinWallet,_health);
     }
 

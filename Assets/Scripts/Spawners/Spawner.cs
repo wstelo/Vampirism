@@ -8,21 +8,21 @@ public class Spawner<T> : MonoBehaviour where T : Item ,IItemable
 
     private void Start()
     {
-        CreateObject(_prefab);
+        CreateObjects(_prefab);
     }
 
-    private void CreateObject(T prefab)
+    private void CreateObjects(T prefab)
     {
         for (int i = 0; i < _objectWithPoints.TargetPoints.Count; i++)
         {
             var currentObject = Instantiate(prefab, _objectWithPoints.TargetPoints[i].transform.position, Quaternion.identity);
-            currentObject.OnCollected += DestroyObject;
+            currentObject.Collected += DestroyObject;
         }
     }
 
     private void DestroyObject(Item item)
     {
-        item.OnCollected -= DestroyObject;
+        item.Collected -= DestroyObject;
         Destroy(item.gameObject);
     }
 }

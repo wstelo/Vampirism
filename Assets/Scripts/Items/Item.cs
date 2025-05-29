@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    public event Action<Item> OnCollected;
+    public event Action<Item> Collected;
 
     protected void DisableObject()
     {
-        OnCollected?.Invoke(this);
+        Collected?.Invoke(this);
     }
 }

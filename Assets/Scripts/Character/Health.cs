@@ -7,8 +7,8 @@ public class Health : MonoBehaviour, IDamageable
 
     private float _minValue = 0;
 
-    public event Action<Health> HealthEnded;
-    public event Action<float> ChangedValue;
+    public event Action<Health> Ended;
+    public event Action<float> ValueChanged;
     public float CurrentValue { get; private set; }
     public float MaxValue => _maxValue;
 
@@ -17,13 +17,13 @@ public class Health : MonoBehaviour, IDamageable
         CurrentValue = _maxValue;
     }
 
-    public void IncreaseHealth(float count)
+    public void IncreaseValue(float count)
     {
         if (count > 0)
         {
             CurrentValue += count;
             CurrentValue = Mathf.Clamp(CurrentValue, _minValue, _maxValue);
-            ChangedValue?.Invoke(CurrentValue);
+            ValueChanged?.Invoke(CurrentValue);
         }
     }
 
@@ -36,10 +36,10 @@ public class Health : MonoBehaviour, IDamageable
             if (CurrentValue <= 0)
             {
                 CurrentValue = 0;
-                HealthEnded?.Invoke(this);
+                Ended?.Invoke(this);
             }
 
-            ChangedValue?.Invoke(CurrentValue);
+            ValueChanged?.Invoke(CurrentValue);
         }
     }
 }

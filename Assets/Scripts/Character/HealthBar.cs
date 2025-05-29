@@ -6,12 +6,12 @@ public abstract class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        Health.ChangedValue += ChangeValue;
+        Health.ValueChanged += ChangeValue;
     }
 
     private void OnDisable()
     {
-        Health.ChangedValue -= ChangeValue;
+        Health.ValueChanged -= ChangeValue;
     }
 
     public virtual void ChangeValue(float value)
