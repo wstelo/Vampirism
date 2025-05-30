@@ -1,99 +1,67 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AbilityEffects), typeof(NearestTargetDetector), typeof(Health))]
+
 public class Vampirism : MonoBehaviour
-{
-    [SerializeField] private LayerMask _enemyLayer;
-    [SerializeField] private Health _health;
+{  
+    [SerializeField] private LayerMask _enemyLayer; 
+    [SerializeField] private float _damage = 5;
+
+    private NearestTargetDetector _targetDetector;
+    private Collider2D _currentTarget;
+    private Health _health;
+    private float _currentCooldownTime = 0f;
+    private float _currentActionTime = 0f;
+    private float _refreshTime = 0.25f;
+    private float _cooldownTime = 4f;
+    private float _actionTime = 6f;
 
     private bool _isReady = false;
-    private Vector3 _circlePosition;
-    private float _circleRadius = 4;
 
     public event Action<float, float> ChangedCooldownTimerValue;
     public event Action<float, float> ChangedActionTimerValue;
     public event Action ActivatedAbility;
     public event Action DeactivatedAbility;
 
-    public float ActionTime { get; private set; } = 6f;
-    public float CooldownTime { get; private set; } = 4f;
-    public float CurrentActionTime { get; private set; } = 0f;
-    public float CurrentCooldownTime { get; private set; } = 0f;
-    public bool IsActivate { get; private set; } = false;
+    public float CircleRadius { get; private set; } = 4;
 
     private void Start()
     {
+        _health = GetComponent<Health>();
+        _targetDetector = GetComponent<NearestTargetDetector>();
         StartCoroutine(StartCooldown());
-    }
-
-    public void Update()
-    {
-        _circlePosition = transform.position;
-    }
-
-    public void FixedUpdate()
-    {
-        if (IsActivate)
-        {
-            _isReady = false;
-            StartCoroutine (TakeOutHealth());
-            IsActivate = false;
-        }
     }
 
     public void Activate()
     {
-        if (_isReady && IsActivate == false)
+        if(_isReady)
         {
-            IsActivate = true;
+            StartCoroutine(StartAction());
         }
     }
 
-    private IEnumerator TakeOutHealth()
+    private IEnumerator StartAction()
     {
-        float refreshTime = 0.25f;
-        var wait = new WaitForSeconds(refreshTime);
-        Collider2D currentTarget = null;
-        float lastDistance = 0;
-        float currentDistance;
-
-        CurrentActionTime = 0f;
+        _isReady = false;
         ActivatedAbility?.Invoke();
+        _currentActionTime = 0f;
+        var wait = new WaitForSeconds(_refreshTime);
 
-        while (CurrentActionTime < ActionTime)
+        while (_currentActionTime < _actionTime)
         {
-            Collider2D[] hits = Physics2D.OverlapCircleAll(_circlePosition, _circleRadius, _enemyLayer);
-
-            if (hits != null)
-            {
-                foreach (var hit in hits)
-                {
-                    if (currentTarget == null)
-                    {
-                        currentTarget = hit;
-                        lastDistance = gameObject.transform.position.SqrDistance(hit.transform.position);
-                    }
-
-                    if(gameObject.transform.position.SqrDistance(hit.transform.position) < lastDistance)
-                    {
-                        currentTarget = hit;
-                        lastDistance = gameObject.transform.position.SqrDistance(hit.transform.position);
-                    }                                      
-                }
-
-                if(currentTarget != null && currentTarget.TryGetComponent(out Health enemy))
-                {
-                    enemy.TakeDamage(3);
-                    _health.IncreaseValue(3);
-                }
-            }
-
-            CurrentActionTime += refreshTime;
-            ChangedActionTimerValue?.Invoke(CurrentActionTime, ActionTime);
-
             yield return wait;
+
+            _currentActionTime += _refreshTime;
+            ChangedActionTimerValue(_currentActionTime, _actionTime);
+            _currentTarget = _targetDetector.GetTarget(CircleRadius, _enemyLayer);
+
+            if (_currentTarget != null && _currentTarget.gameObject.TryGetComponent(out IDamageable target))
+            {
+                 target.TakeDamage(_damage);
+                _health.IncreaseValue(_damage);
+            }
         }
 
         DeactivatedAbility?.Invoke();
@@ -102,16 +70,15 @@ public class Vampirism : MonoBehaviour
 
     private IEnumerator StartCooldown()
     {
-        CurrentCooldownTime = 0f;
-        float refreshTime = 0.25f;
-        var wait = new WaitForSeconds(refreshTime);
+        _currentCooldownTime = 0f;
+        var wait = new WaitForSeconds(_refreshTime);
 
-        while (CurrentCooldownTime < CooldownTime)
+        while (_currentCooldownTime < _cooldownTime)
         {
-            CurrentCooldownTime += refreshTime;
-            ChangedCooldownTimerValue?.Invoke(CurrentCooldownTime, CooldownTime);
-
             yield return wait;
+
+            _currentCooldownTime += _refreshTime;
+            ChangedCooldownTimerValue?.Invoke(_currentCooldownTime, _cooldownTime);
         }
 
         _isReady = true;
