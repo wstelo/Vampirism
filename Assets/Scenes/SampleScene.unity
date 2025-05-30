@@ -10154,6 +10154,17 @@ TilemapCollider2D:
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0
   m_UseDelaunayMesh: 0
+--- !u!114 &1801095252 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4118184339258934329, guid: 234ef8c14dc82704eaa742034477b462, type: 3}
+  m_PrefabInstance: {fileID: 4739092812363060632}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7f7c7eaf2e30a646a3cdca97278aba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1881042881
 GameObject:
   m_ObjectHideFlags: 0
@@ -10532,6 +10543,10 @@ PrefabInstance:
       propertyPath: _health
       value: 
       objectReference: {fileID: 921680790}
+    - target: {fileID: 4815433862592741294, guid: 234ef8c14dc82704eaa742034477b462, type: 3}
+      propertyPath: _targetDetector
+      value: 
+      objectReference: {fileID: 1801095252}
     - target: {fileID: 6596127425566245104, guid: 234ef8c14dc82704eaa742034477b462, type: 3}
       propertyPath: m_Name
       value: Player
